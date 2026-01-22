@@ -98,10 +98,10 @@ class Database:
 
         return self.cursor.execute(f"SELECT latitude, longitude, address, mapurl FROM geocodes WHERE query = '{address}'").fetchone()
 
-    def store_geocode(self, query, datatype, latitude, longitude, postalcode, street, city, address, mapurl):
+    def store_geocode(self, query, datatype, longitude, latitude, postalcode, street, city, address, mapurl):
         """Save all info we have for an address."""
 
-        values = (query, datatype, latitude, longitude, postalcode, street, city, address, mapurl)
+        values = (query, datatype, longitude, latitude, postalcode, street, city, address, mapurl)
         query = "INSERT INTO geocodes VALUES (?,?,?,?,?,?,?,?,?)"
 
         self.cursor.execute(query, values)
@@ -221,7 +221,7 @@ def OpenCageGeocode(query, key):
     
             if response.status_code in (402, 429):
                 # Rate limit exceeded
-                reset_time = datetime.utcfromtimestamp(response.json()['rate']['reset'])
+                reset_time = datetime.fromtimestamp(response.json()['rate']['reset'], tz=timezone.utc)
                 raise RateLimitExceededError(
                     reset_to=int(response.json()['rate']['limit']),
                     reset_time=reset_time
@@ -520,6 +520,9 @@ class Main:
             if 'token' in self.config['opencage']:
                 self.opencagetoken = self.config['opencage']['token']
 
+        # MQTT retain setting
+        self.mqtt_retain = self.config['mqtt'].get('retain', False)
+
         # Load capcodes ignore data
         self.ignorecapcodes = ''
         if 'p2000_global_filters' in self.config:
@@ -813,8 +816,8 @@ class Main:
 
             attribute_topic = 'homeassistant/sensor/' + self.sensors[id]['attribute_topic']
             state_topic = 'homeassistant/sensor/' + self.sensors[id]['state_topic']
-            self.mqtt_sender.publish(topic=attribute_topic, payload=json.dumps(attributes), retain=True)
-            self.mqtt_sender.publish(topic=state_topic, payload=msg.body, retain=True)
+            self.mqtt_sender.publish(topic=attribute_topic, payload=json.dumps(attributes), retain=self.mqtt_retain)
+            self.mqtt_sender.publish(topic=state_topic, payload=msg.body, retain=self.mqtt_retain)
 
             log_message(f"Sensor '{self.sensors[id]['name']}': '{msg.body}'", self.debug)
 
@@ -1087,7 +1090,7 @@ class Main:
                                     )
 
                                     try:
-                                        self.database.store_geocode(address, datatype, str(latitude), str(longitude), postcode, street, plaats, oc_address, mapurl)
+                                        self.database.store_geocode(address, datatype, str(longitude), str(latitude), postcode, street, plaats, oc_address, mapurl)
 
                                         geocoded = True
                                     except:

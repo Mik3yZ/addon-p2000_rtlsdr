@@ -41,9 +41,12 @@ COPY sdl_ids.txt /var/lib/
 COPY p2000.py /
 COPY p2000.sqlite3 /
 COPY p2000.py /
+COPY entrypoint.sh /entrypoint.sh
+COPY watchdog.sh /watchdog.sh
 
-RUN chmod a+x /p2000.py
-ENTRYPOINT ["/p2000.py"]
+RUN chmod a+x /entrypoint.sh /watchdog.sh /p2000.py
+
+ENTRYPOINT ["/entrypoint.sh"]
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -61,13 +64,13 @@ LABEL \
     io.hass.arch="${BUILD_ARCH}" \
     io.hass.type="addon" \
     io.hass.version=${BUILD_VERSION} \
-    maintainer="cyberjunky (https://github.com/cyberjunky)" \
+    maintainer="cyberjunky (https://github.com/Mik3yZ)" \
     org.opencontainers.image.title="${BUILD_NAME}" \
     org.opencontainers.image.description="${BUILD_DESCRIPTION}" \
     org.opencontainers.image.vendor="Home Assistant Add-ons" \
-    org.opencontainers.image.authors="cyberjunky (https://github.com/cyberjunky)" \
+    org.opencontainers.image.authors="Mik3yZ (https://github.com/Mik3yZ)" \
     org.opencontainers.image.licenses="MIT" \
-    org.opencontainers.image.url="https://github.com/cyberjunky" \
+    org.opencontainers.image.url="https://github.com/Mik3yZ" \
     org.opencontainers.image.source="https://github.com/${BUILD_REPOSITORY}" \
     org.opencontainers.image.documentation="https://github.com/${BUILD_REPOSITORY}/blob/main/README.md" \
     org.opencontainers.image.created=${BUILD_DATE} \

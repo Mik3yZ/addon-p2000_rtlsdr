@@ -24,7 +24,7 @@ The installation of this add-on is pretty straightforward and not different in c
 
 1. Add my add-ons repository to your home assistant instance  
    (in supervisor addons store at top right, or click button below if you have configured my HA)  
-   [![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fcyberjunky%2Faddon-p2000_rtlsdr)
+   [![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2FMik3yZ%2Faddon-p2000_rtlsdr)
 1. Install this add-on.
 1. Click the `Save` button to store your configuration.
 1. Set the add-on options to your preferences (see below)
@@ -270,3 +270,22 @@ The replacement, use an empty string to completely remove part of the message (e
 
 
 NOTE: `region`, `discipline`, `location` and `remark` information is looked-up in a local database using the `capcodes` retrieved from the messages. It's not available in the over-the-air traffic, so it can be incomplete, outdated and incorrect.
+
+## Authors & contributors
+The creator of this add-on is `cyberjunky`. It has been extended by Mik3yZ
+
+## Support
+
+Got questions, suggestions or found a bug?
+You can open an issue here [https://github.com/Mik3yZ/addon-p2000_rtlsdr/issues] on GitHub
+
+## License
+MIT License
+
+Copyright (c) 2023 cyberjunky
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
